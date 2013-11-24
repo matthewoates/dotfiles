@@ -93,3 +93,6 @@ colorscheme molokai
 
 " allows opening of files without closing the current file (or something like that)
 set hidden
+
+" pathogen package manager
+execute pathogen#infect()
