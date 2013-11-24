@@ -63,8 +63,6 @@ set ruler
 set shortmess=atI
 " Show the current mode
 set showmode
-" Show the filename in the window titlebar
-set title
 " Show the (partial) command as it’s being typed
 set showcmd
 " Start scrolling three lines before the horizontal window border
