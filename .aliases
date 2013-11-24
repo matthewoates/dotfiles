@@ -5,7 +5,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias -- -="cd -"
 # cd to the root of the current repo
-alias cdr='if [ "`git rev-parse --show-cdup`" !="" ]; then cd `git rev-parse --show-cdup`; fi'
+alias cdr='if [ "`git rev-parse --show-cdup`" != "" ]; then cd `git rev-parse --show-cdup`; fi'
 
 
 # Detect which `ls` flavor is in use
