@@ -1,4 +1,13 @@
 # Mathias’s dotfiles
+*forked by Matt*
+
+## Changes added in fork
+
+* added z (a super nifty shell script for fast directory navigation)
+* added NERDTree package for vim (a directory navigator)
+* changed vim color scheme to one with a dark background and neon accents
+* added 'cdr' alias. CD to the root of the current git repo
+* removed and changed some minor things I didn't like
 
 ## Installation
 
