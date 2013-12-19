@@ -96,3 +96,13 @@ set hidden
 
 " pathogen package manager
 execute pathogen#infect()
+
+" indentation
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set autoindent " turn indenting on
+set smartindent " do the right thing (mostly)
+
+" hbs syntax highlighting
+au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
