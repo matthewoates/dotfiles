@@ -1,3 +1,6 @@
+# vim
+alias v="vim"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
