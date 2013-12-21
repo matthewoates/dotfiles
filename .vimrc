@@ -1,3 +1,8 @@
+" stuff Matt added
+
+" toggle nerdtree with t
+:nmap t :NERDTreeToggle <CR>
+
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
