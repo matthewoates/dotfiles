@@ -94,7 +94,8 @@ if has("autocmd")
 endif
 
 " a nice color scheme
-colorscheme molokai
+"colorscheme molokai
+colorscheme mustang
 
 " allows opening of files without closing the current file (or something like that)
 set hidden
