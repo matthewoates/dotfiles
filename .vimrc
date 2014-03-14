@@ -47,7 +47,7 @@ syntax on
 " Highlight current line
 set cursorline
 " Make tabs as wide as four spaces
-set tabstop=4
+"set tabstop=4
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,nbsp:_
 set list
@@ -94,6 +94,8 @@ if has("autocmd")
 	filetype on
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+	autocmd BufReadPost * DetectIndent
 endif
 
 " a nice color scheme
@@ -107,9 +109,9 @@ set hidden
 execute pathogen#infect()
 
 " indentation
-set expandtab
-set shiftwidth=4
-set softtabstop=4
+"set expandtab
+"set shiftwidth=2
+"set softtabstop=2
 set autoindent " turn indenting on
 set smartindent " do the right thing (mostly)
 
