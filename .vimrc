@@ -3,6 +3,12 @@
 " toggle nerdtree with t
 :nmap t :NERDTreeToggle <CR>
 
+" navigate around split views with ctrl + some key
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
