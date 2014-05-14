@@ -9,6 +9,9 @@ for file in ~/.{path,bash_prompt,git_completion,exports,aliases,functions,extra}
 done
 unset file
 
+# git unadd files
+git config --global alias.unadd "reset HEAD"
+
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 
