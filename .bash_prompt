@@ -61,5 +61,5 @@ export DARK_GREY
 CYAN=$(tput setaf 14)
 export CYAN
 
-export PS1="\[$DARK_GREY\]\w\[$CYAN\] ➤ \[$RESET\] "
+export PS1="\[$DARK_GREY\]\w\[$CYAN\]\n ➤ \[$RESET\] "
 export PS2="\[$CYAN\]→ \[$RESET\]"
