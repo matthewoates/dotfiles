@@ -98,7 +98,7 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 if has("autocmd")
 	" Enable file type detection
 	filetype on
-	" Treat .json files as .js
+" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	autocmd BufReadPost * DetectIndent
@@ -123,3 +123,15 @@ set smartindent " do the right thing (mostly)
 
 " hbs syntax highlighting
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+au BufRead,BufNewFile *.ts setlocal filetype=typescript
+
+" jk to move up and down when omnicomplete is visible
+inoremap <expr> <c-j> ("\<C-n>")
+inoremap <expr> <c-k> ("\<C-p>")
+
+" enter when omnicomplete is visible will select the current item
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" auto close preview
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
