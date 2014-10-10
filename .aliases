@@ -1,6 +1,10 @@
 # vim
 alias v="vim"
 
+# cd is difficult to type properly, since you are supposed to
+# use the same finger for both keys
+alias d=cd
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
