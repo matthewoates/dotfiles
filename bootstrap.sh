@@ -4,7 +4,7 @@
 #git pull origin master
 
 # needed for typescript code completion
-#npm install -g typescript-tools
+npm install -g typescript-tools
 
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
