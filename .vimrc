@@ -30,12 +30,6 @@ let mapleader=","
 " Don’t add empty newlines at the end of files
 set binary
 set noeol
-" Centralize backups, swapfiles and undo history
-"set backupdir=~/.vim/backups
-"set directory=~/.vim/swaps
-"if exists("&undodir")
-"	set undodir=~/.vim/undo
-"endif
 " This isn't the 70s. We don't need backups and swap files
 set nobackup
 set noswapfile
@@ -52,8 +46,6 @@ set number
 syntax on
 " Highlight current line
 set cursorline
-" Make tabs as wide as four spaces
-"set tabstop=4
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,nbsp:_
 set list
@@ -98,9 +90,10 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 if has("autocmd")
 	" Enable file type detection
 	filetype on
-" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+	autocmd BufRead,BufNewFile *.handlebars,*.hbs setfiletype html syntax=handlebars
+	autocmd BufRead,BufNewFile *.ts setfiletype typescript
 	autocmd BufReadPost * DetectIndent
 endif
 
@@ -111,27 +104,6 @@ colorscheme molokai
 " allows opening of files without closing the current file (or something like that)
 set hidden
 
-" pathogen package manager
-execute pathogen#infect()
-
 " indentation
-"set expandtab
-"set shiftwidth=2
-"set softtabstop=2
 set autoindent " turn indenting on
 set smartindent " do the right thing (mostly)
-
-" hbs syntax highlighting
-au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
-au BufRead,BufNewFile *.ts setlocal filetype=typescript
-
-" jk to move up and down when omnicomplete is visible
-inoremap <expr> <c-j> ("\<C-n>")
-inoremap <expr> <c-k> ("\<C-p>")
-
-" enter when omnicomplete is visible will select the current item
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" auto close preview
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
