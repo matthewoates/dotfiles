@@ -1,109 +1,99 @@
-" stuff Matt added
+" Vundle Setup
+set nocompatible                " vim not vi
+filetype off
 
-" toggle nerdtree with t
-:nmap t :NERDTreeToggle <CR>
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" navigate around split views with ctrl + some key
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+Plugin 'gmarik/Vundle.vim'      " let Vundle manage Vundle (required)
 
-" Make Vim more useful
-set nocompatible
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
-" Enhance command-line completion
-set wildmenu
-" Allow cursor keys in insert mode
-set esckeys
-" Allow backspace in insert mode
+" Additional Plugins
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'marijnh/tern_for_vim' " javascript autocomplete
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'rking/ag.vim' " search
+Plugin 'tpope/vim-fugitive' " git wrapper
+Plugin 'kien/ctrlp.vim' " fuzzy file search
+Plugin 'clausreinke/typescript-tools' " typescript autocomplete
+
+call vundle#end()
+filetype indent plugin on       " File-type detection
+" End Vundle Setup
+
+" GENERAL
+syntax on                       " Syntax highlighting
+set modelines=0                 " Disable modelines for security reasons
+set hidden                      " Keep buffers hidden instead of closing
+set wildmenu                    " Command line completion
+set wildmode=list:longest
+set visualbell                  " No beeping
+set number                      " Show line numbers
+set ruler                       " Show line number and column for cursor
+set cursorline                  " Highlight current line
+set scrolloff=10                " Line padding above/below current line
 set backspace=indent,eol,start
-" Optimize for fast terminal connections
-set ttyfast
-" Add the g flag to search/replace by default
-set gdefault
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
-" Change mapleader
-let mapleader=","
-" Don’t add empty newlines at the end of files
-set binary
-set noeol
-" This isn't the 70s. We don't need backups and swap files
-set nobackup
-set noswapfile
+set title
+set laststatus=2                " Show status bar
+let mapleader=","               " New leader key
+au FocusLost * :wa              " Save when switching to a new window
 
-" Respect modeline in files
-set modeline
-set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
-set secure
-" Enable line numbers
-set number
-" Enable syntax highlighting
-syntax on
-" Highlight current line
-set cursorline
-" Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,nbsp:_
-set list
-" Highlight searches
-set hlsearch
-" Ignore case of searches
-set ignorecase
-" Highlight dynamically as pattern is typed
-set incsearch
-" Always show status line
-set laststatus=2
-" Enable mouse in all modes
-set mouse=a
-" Disable error bells
-set noerrorbells
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
-" Show the cursor position
-set ruler
-" Don’t show the intro message when starting Vim
-set shortmess=atI
-" Show the current mode
-set showmode
-" Show the (partial) command as it’s being typed
-set showcmd
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
-
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
-
-" Automatic commands
-if has("autocmd")
-	" Enable file type detection
-	filetype on
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-	autocmd BufRead,BufNewFile *.handlebars,*.hbs setfiletype html syntax=handlebars
-	autocmd BufRead,BufNewFile *.ts setfiletype typescript
-	autocmd BufReadPost * DetectIndent
+if has('persistent_undo')
+  silent !mkdir -p ~/.vim/backups
+  set undodir=~/.vim/backups    " Directory to store all undo files
+  set undofile                  " Keep undo file to persist changes
 endif
 
-" a nice color scheme
-"colorscheme molokai
-colorscheme molokai
+" CODE
+set showmatch                   " Show matching braces...
+set matchtime=3               " ...for half of a second
 
-" allows opening of files without closing the current file (or something like that)
-set hidden
+" SPACING / TABS
+set autoindent
+set smartindent
+set expandtab                   " Use spaces instead of tab characters
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 
-" indentation
-set autoindent " turn indenting on
-set smartindent " do the right thing (mostly)
+" SEARCHING
+set hlsearch                    " Highlight search results
+set incsearch                   " Instant feedback on searching
+set ignorecase                  " Case insensitive searching...
+set smartcase                   " ...unless we have capital letters
+
+" Set syntax highlighting for odd file types
+au BufReadPost *.jst.ejs set filetype=html
+au BufReadPost *.avsc    set filetype=avsc
+au BufReadPost *.avsc    set syntax=json
+
+" THEME
+set t_Co=256
+colo molokai
+
+" NERDTree plugin
+map  <C-n> :NERDTreeToggle<CR>
+let NERDTreeWinSize=50
+
+" Command T
+let CommandTMaxHeight=10
+let CommandTWildIgnore=&wildignore . ',*.swp,*.swo,*~,.keep,node_modules/*'
+
+" Ag - remap Ag to Ag! so the first result isn't opened automatically
+ca Ag Ag!
+
+" KEY-MAPPINGS
+" Quick escape
+inoremap jj <ESC>
+
+" BETTER SPLIT WINDOWS
+" (W)indow (N)ew [vertical]
+nnoremap <leader>wn <C-w>v<C-w>l
+" (W)indow (S)plit [horizontal]
+nnoremap <leader>ws <C-w>s<C-w>w
+" (W)indow (C)lose
+nnoremap <leader>wc <C-w><C-c>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
