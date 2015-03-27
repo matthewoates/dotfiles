@@ -1,99 +1,126 @@
-" Vundle Setup
-set nocompatible                " vim not vi
-filetype off
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Management
+" run :PluginInstall to install plugins from this file
+" run :PluginClean to remove unused plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'      " let Vundle manage Vundle (required)
 
 " Additional Plugins
-Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'              " awesome file/directory picker
+Plugin 'marijnh/tern_for_vim'             " javascript autocomplete
+Plugin 'mustache/vim-mustache-handlebars' " handlebars highlighting
+Plugin 'rking/ag.vim'                     " search
+Plugin 'tpope/vim-fugitive'               " git wrapper
+Plugin 'kien/ctrlp.vim'                   " fuzzy file search
+Plugin 'clausreinke/typescript-tools'     " typescript autocomplete
+Plugin 'ciaranm/detectindent'             " auto-detect indentation per file
 
-Plugin 'marijnh/tern_for_vim' " javascript autocomplete
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'rking/ag.vim' " search
-Plugin 'tpope/vim-fugitive' " git wrapper
-Plugin 'kien/ctrlp.vim' " fuzzy file search
-Plugin 'clausreinke/typescript-tools' " typescript autocomplete
-
-call vundle#end()
-filetype indent plugin on       " File-type detection
 " End Vundle Setup
+call vundle#end()
 
-" GENERAL
-syntax on                       " Syntax highlighting
-set modelines=0                 " Disable modelines for security reasons
-set hidden                      " Keep buffers hidden instead of closing
-set wildmenu                    " Command line completion
-set wildmode=list:longest
-set visualbell                  " No beeping
-set number                      " Show line numbers
-set ruler                       " Show line number and column for cursor
-set cursorline                  " Highlight current line
-set scrolloff=10                " Line padding above/below current line
-set backspace=indent,eol,start
-set title
-set laststatus=2                " Show status bar
-let mapleader=","               " New leader key
-au FocusLost * :wa              " Save when switching to a new window
 
-if has('persistent_undo')
-  silent !mkdir -p ~/.vim/backups
-  set undodir=~/.vim/backups    " Directory to store all undo files
-  set undofile                  " Keep undo file to persist changes
-endif
 
-" CODE
-set showmatch                   " Show matching braces...
-set matchtime=3               " ...for half of a second
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" toggle nerdtree with t
+:nmap t :NERDTreeToggle <CR>
 
-" SPACING / TABS
-set autoindent
-set smartindent
-set expandtab                   " Use spaces instead of tab characters
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
 
-" SEARCHING
-set hlsearch                    " Highlight search results
-set incsearch                   " Instant feedback on searching
-set ignorecase                  " Case insensitive searching...
-set smartcase                   " ...unless we have capital letters
+" (autocomplete) auto close preview
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-" Set syntax highlighting for odd file types
-au BufReadPost *.jst.ejs set filetype=html
-au BufReadPost *.avsc    set filetype=avsc
-au BufReadPost *.avsc    set syntax=json
+" (autocomplete) enter when omnicomplete is visible will select the current item
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" THEME
-set t_Co=256
-colo molokai
+" (autocomplete) jk to move up and down when omnicomplete is visible
+inoremap <expr> <c-j> ("\<C-n>")
+inoremap <expr> <c-k> ("\<C-p>")
 
-" NERDTree plugin
-map  <C-n> :NERDTreeToggle<CR>
-let NERDTreeWinSize=50
 
-" Command T
-let CommandTMaxHeight=10
-let CommandTWildIgnore=&wildignore . ',*.swp,*.swo,*~,.keep,node_modules/*'
 
-" Ag - remap Ag to Ag! so the first result isn't opened automatically
-ca Ag Ag!
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" key/action bindings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" navigate around split views with ctrl + some key
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
-" KEY-MAPPINGS
-" Quick escape
-inoremap jj <ESC>
+" Save a file as root (,W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
-" BETTER SPLIT WINDOWS
-" (W)indow (N)ew [vertical]
-nnoremap <leader>wn <C-w>v<C-w>l
-" (W)indow (S)plit [horizontal]
-nnoremap <leader>ws <C-w>s<C-w>w
-" (W)indow (C)lose
-nnoremap <leader>wc <C-w><C-c>
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype on " Enable file type detection
+colorscheme badwolf
+syntax on " Enable syntax highlighting
+let mapleader="," " Change mapleader
+
+set t_Co=256 " 256 colors
+set nofoldenable " Disable folding
+set nocompatible " Make Vim more useful
+set clipboard=unnamed " Use the OS clipboard by default (on versions compiled with '+clipboard')
+set wildmenu " Enhance comman-lien completion
+set esckeys " Allow cursor keys in insert mode
+set backspace=indent,eol,start " Allow backspace in insert mode
+set ttyfast " Optimize for fast terminal connections
+set gdefault " Add the g flag to search/replace by default
+set encoding=utf-8 nobomb " Use UTF-8 without BOM
+set nobackup " This isn't the 70s. We don't need backups and swap files
+set noswapfile " This isn't the 70s. We don't need backups and swap files
+set hidden " Allows opening of files without closing the current file
+set nocompatible                " vim not vi
+set exrc " Enable per-directory .vimrc files
+set secure " Disable unsafe commands in per-directory .vimrc files
+set number " Enable line numbers
+set cursorline " Highlight current line
+set lcs=tab:▸\ ,trail:·,nbsp:_ " Show invisible characters
+set list
+set hlsearch " Highlight searches
+set ignorecase " Ignore case of searches
+set incsearch " Highlight dynamically as pattern is typed
+set laststatus=2 " Always show status line
+set mouse=a " Enable mouse in all modes
+set noerrorbells " Disable error bells
+set nostartofline " Don't reset cursor to start of line when moving around
+set ruler " Show the cursor position
+set shortmess=atI " Don't show the intro message when starting Vim
+set showmode " Show the current mode
+set showcmd " Show the (partial) command as it's being typed
+set scrolloff=3 " Start scrolling 3 lines before the horizontal window buffer
+set autoindent " turn indenting on
+set smartindent " do the right thing (mostly)
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" automatic commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Automatic commands
+" audocmd requires Vim 0.7.3 or greater
+autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+autocmd BufReadPost * DetectIndent
+autocmd BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+autocmd BufRead,BufNewFile *.ts setlocal filetype=typescript
+autocmd BufReadPost *.jst.ejs set filetype=html
+autocmd BufReadPost *.avsc    set syntax=json
+
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+
