@@ -6,7 +6,7 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'      " let Vundle manage Vundle (required)
+Plugin 'gmarik/Vundle.vim'                " required
 
 " Additional Plugins
 Plugin 'scrooloose/nerdtree'              " awesome file/directory picker
@@ -18,7 +18,6 @@ Plugin 'kien/ctrlp.vim'                   " fuzzy file search
 Plugin 'clausreinke/typescript-tools'     " typescript autocomplete
 Plugin 'ciaranm/detectindent'             " auto-detect indentation per file
 
-" End Vundle Setup
 call vundle#end()
 
 
