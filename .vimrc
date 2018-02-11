@@ -101,7 +101,6 @@ if has("autocmd")
 " Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-	autocmd BufReadPost * DetectIndent
 endif
 
 " a nice color scheme
