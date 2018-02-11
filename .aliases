@@ -1,4 +1,5 @@
 # super frequent commands
+alias c="clear"
 alias v="vim"
 alias d="cd"
 alias g="git"
