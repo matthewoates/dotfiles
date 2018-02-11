@@ -3,6 +3,10 @@ alias v="vim"
 alias d="cd"
 alias g="git"
 
+# git aliases
+alias push="git push origin head"
+alias pull="git pull origin head"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
